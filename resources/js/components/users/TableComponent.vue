@@ -3,14 +3,16 @@
   <div v-if="$can('invoice-list')">You can edit posts.</div>
 
   <div>
-    <b-table
+
+      <b-table
       id="table-transition-example"
       :items="users"
       :fields="fields"
+      :per-page="perPage"
+      :current-page="currentPage"
       striped
       small
-      primary-key="id"
-      :tbody-transition-props="transProps"
+      primary-key="id"      
       head-variant="dark"
     >
     <template v-slot:cell(roles)="row" >
@@ -29,6 +31,14 @@
      
    </template>
     </b-table>
+    <b-pagination
+    id ="p-table"
+      v-model="currentPage"
+      :total-rows="totalRows"
+      :per-page="perPage"
+      aria-controls="table-transition-example"
+      align="center"
+    ></b-pagination>
   </div>
 </b-container>
 </template>
@@ -38,6 +48,8 @@
   export default {
     data() {
       return {
+        perPage: 3,
+        currentPage: 1,
          fetchTime: 0,
       busy: false,
         transProps: {
@@ -51,7 +63,7 @@
           { key: 'name',label: 'Vardas', sortable: true },
           { key: 'email',label: 'E-pastas', sortable: true },
           {key:'roles', label:'Roles'},
-          { key: 'actions'}
+          { key: 'actions', label:'Veiksmai'}
         ]
       }
     },
