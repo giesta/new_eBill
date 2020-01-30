@@ -21,6 +21,7 @@ Route::middleware('auth:api')->group( function() {
 		[
 			'users' => 'API\UserController',
 			'roles' => 'API\RoleController',
+			'products' => 'API\ProductController',
 		]
 	);
 });
