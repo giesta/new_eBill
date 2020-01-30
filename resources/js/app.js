@@ -4,59 +4,57 @@
  * building robust, powerful web applications using Vue and Laravel.
  */
 
-require('./bootstrap');
+require("./bootstrap");
 
-window.Vue = require('vue');
+window.Vue = require("vue");
 
 //Import Vue Filter
-require('./filter'); 
+require("./filter");
 
 //Import progressbar
-require('./progressbar'); 
+require("./progressbar");
 
-//Setup custom events 
-require('./customEvents'); 
+//Setup custom events
+require("./customEvents");
 
 //Import permissions
-import Permissions from './mixins/Permissions';
+import Permissions from "./mixins/Permissions";
 Vue.mixin(Permissions);
 
-
 //Import View Router
-import VueRouter from 'vue-router'
-Vue.use(VueRouter)
+import VueRouter from "vue-router";
+Vue.use(VueRouter);
 
-import Vue from 'vue'
-import { BootstrapVue, IconsPlugin } from 'bootstrap-vue'
+import Vue from "vue";
+import { BootstrapVue, IconsPlugin } from "bootstrap-vue";
 
 // Install BootstrapVue
-Vue.use(BootstrapVue)
+Vue.use(BootstrapVue);
 // Optionally install the BootstrapVue icon components plugin
-Vue.use(IconsPlugin)
+Vue.use(IconsPlugin);
 
 //Import v-from
-import { Form, HasError, AlertError } from 'vform'
+import { Form, HasError, AlertError } from "vform";
 window.Form = Form;
-Vue.component(HasError.name, HasError)
-Vue.component(AlertError.name, AlertError)
-import 'bootstrap/dist/css/bootstrap.css'
-import 'bootstrap-vue/dist/bootstrap-vue.css'
+Vue.component(HasError.name, HasError);
+Vue.component(AlertError.name, AlertError);
+import "bootstrap/dist/css/bootstrap.css";
+import "bootstrap-vue/dist/bootstrap-vue.css";
 import "bootstrap/dist/css/bootstrap.min.css";
-import '../sass/app.scss'
+import "../sass/app.scss";
 
-import { BBadge } from 'bootstrap-vue'
-Vue.component('b-badge', BBadge)
+import { BBadge } from "bootstrap-vue";
+Vue.component("b-badge", BBadge);
 
 //Routes
 
-import { routes } from './routes';
+import { routes } from "./routes";
 
 //Register Routes
 const router = new VueRouter({
-    routes, 
-    mode: 'hash',
-
-})
+    routes,
+    mode: "hash"
+});
 
 /**
  * The following block of code may be used to automatically register your
@@ -70,14 +68,31 @@ const router = new VueRouter({
 // files.keys().map(key => Vue.component(key.split('/').pop().split('.')[0], files(key).default))
 
 //--------------------------------------------
-Vue.component('example-component', require('./components/ExampleComponent.vue').default);
-Vue.component('users-component', require('./components/admin/UserComponent.vue').default);
-Vue.component('users-table', require('./components/users/TableComponent.vue').default);
+Vue.component(
+    "example-component",
+    require("./components/ExampleComponent.vue").default
+);
+Vue.component(
+    "users-component",
+    require("./components/admin/UserComponent.vue").default
+);
+Vue.component(
+    "users-table",
+    require("./components/users/TableComponent.vue").default
+);
+Vue.component(
+    "create-button",
+    require("./components/CreateButtonComponent.vue").default
+);
+Vue.component(
+    "roles-table",
+    require("./components/roles/TableComponent.vue").default
+);
 /**
  * Next, we will create a fresh Vue application instance and attach it to
  * the page. Then, you may begin adding components to this application
  * or customize the JavaScript scaffolding to fit your unique needs.
  */
 const app = new Vue({
-  el: '#app'
-}); 
+    el: "#app"
+});

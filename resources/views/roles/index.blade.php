@@ -86,7 +86,7 @@
     @endforeach
 
 </table>
-
+<roles-table></roles-table>
 
 {!! $roles->render() !!}
 
