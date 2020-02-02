@@ -5,7 +5,7 @@
 
 <div class="row">
 
-<div class="col-md-4 offset-md-3">
+<div class="col-md-4 offset-md-2">
 
         <div class="pull-left">
 

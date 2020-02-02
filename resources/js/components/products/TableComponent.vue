@@ -12,7 +12,7 @@
                     v-model="filter"
                     type="search"
                     id="filterInput"
-                    placeholder="Įveskite paieškai"
+                    placeholder="Ieškoti"
                   ></b-form-input>
                   <b-input-group-append>
                     <b-button :disabled="!filter" @click="filter = ''">Išvalyti</b-button>
@@ -33,7 +33,18 @@
             primary-key="id"
             head-variant="dark"
             :filter="filter"
+            :busy="isBusy"
+            show-empty
+            empty-text="Įrašų nėra"
+            empty-filtered-text="Susijusių įrašų nerasta"
           >
+            <template v-slot:table-busy>
+              <div v-if="isBusy" class="text-center">
+                <div>
+                  <b-spinner type="grow" label="Loading..."></b-spinner>
+                </div>
+              </div>
+            </template>
             <template v-slot:cell(actions)="row">
               <b-button :to="`/roles/${row.item.id}`" variant="outline-info" class="mb-2">
                 <b-icon icon="info"></b-icon>
@@ -66,7 +77,7 @@ export default {
       perPage: 3,
       currentPage: 1,
       fetchTime: 0,
-      busy: false,
+      isBusy: true,
       filter: null,
       transProps: {
         // Transition name
@@ -91,12 +102,13 @@ export default {
       this.$root.$emit("bv::show::modal", this.infoModal.id, button);
     },
     getResults(ctx, callback) {
+      this.isBusy = true;
       axios
         .get("/api/products")
         .then(response => {
           this.products = response.data;
           this.totalRows = response.data.length;
-          return this.products;
+          this.isBusy = false;
         })
         .catch(error => console.log(error));
     }
