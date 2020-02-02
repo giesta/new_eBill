@@ -5,19 +5,18 @@
 
 <div class="row">
 
-    <div class="col-lg-12 margin-tb">
+<div class="col-md-4 offset-md-1">
 
         <div class="pull-left">
 
-            <h2>Users Management</h2>
+            <h2>Naudotojai</h2>
 
         </div>
-
-        <div class="pull-right">
-
-            <a class="btn btn-success" href="{{ route('users.create') }}"> Create New User</a>
-
+        
+        <div>
+        <create-button route="{{ route('users.create') }}">Sukurti</create-button>
         </div>
+        
 
     </div>
 

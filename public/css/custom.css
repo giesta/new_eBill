@@ -1,7 +1,15 @@
 table#table-transition-example .flip-list-move {
     transition: transform 1s;
-  }
-  #p-table .page-item.active .page-link {
+}
+#p-table .page-item.active .page-link {
     background-color: #343a40;
     border-color: #343a40;
-  }
+}
+.b-table[aria-busy="true"] + .table-spinner {
+    /* this assumes that the spinner component has a width and height */
+    position: absolute;
+    left: 50%;
+    top: 50%;
+    transform: translate(-50%, -50%);
+    z-index: 10; /* make sure spinner is over table */
+}
