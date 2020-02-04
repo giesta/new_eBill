@@ -18,7 +18,7 @@
         @can('role-create')
 
         <div>
-        <create-button route="{{ route('roles.create') }}">Sukurti</create-button>
+        <create-button route="{{ route('roles.create') }}"></create-button>
         </div>
 
             @endcan

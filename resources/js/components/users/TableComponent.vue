@@ -36,6 +36,7 @@
         show-empty
         empty-text="Įrašų nėra"
         empty-filtered-text="Susijusių įrašų nerasta"
+        @filtered="onFiltered"
       >
         <template v-slot:table-busy>
           <div v-if="isBusy" class="text-center">
@@ -67,6 +68,7 @@
       <b-pagination
         id="p-table"
         v-model="currentPage"
+        :total-rows="totalRows"
         :per-page="perPage"
         aria-controls="table-transition-example"
         align="center"
@@ -117,6 +119,11 @@ export default {
           this.isBusy = false;
         })
         .catch(error => console.log(error));
+    },
+    onFiltered(filteredItems) {
+      // Trigger pagination to update the number of buttons/pages due to filtering
+      this.totalRows = filteredItems.length;
+      this.currentPage = 1;
     }
   }
 };
