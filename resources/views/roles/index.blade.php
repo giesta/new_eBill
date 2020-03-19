@@ -7,6 +7,16 @@
 
 <div class="col-md-4 offset-md-2">
 
+
+@if ($message = Session::get('success'))
+
+    <div class="alert alert-success">
+
+        <p>{{ $message }}</p>
+
+    </div>
+
+@endif
         <div class="pull-left">
 
             <h2>Rolės</h2>
@@ -28,19 +38,6 @@
     </div>
 
 </div>
-
-
-@if ($message = Session::get('success'))
-
-    <div class="alert alert-success">
-
-        <p>{{ $message }}</p>
-
-    </div>
-
-@endif
-
-
 
 <roles-table></roles-table>
 

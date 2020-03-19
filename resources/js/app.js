@@ -56,6 +56,33 @@ const router = new VueRouter({
     mode: "hash"
 });
 
+import {
+    ValidationObserver,
+    ValidationProvider,
+    extend,
+    localize
+} from "vee-validate";
+import lt from "vee-validate/dist/locale/lt.json";
+import * as rules from "vee-validate/dist/rules";
+// Install VeeValidate rules and localization
+Object.keys(rules).forEach(rule => {
+    extend(rule, rules[rule]);
+});
+
+localize("lt", lt);
+
+// Install VeeValidate components globally
+Vue.component("ValidationObserver", ValidationObserver);
+Vue.component("ValidationProvider", ValidationProvider);
+
+extend("password", {
+    params: ["target"],
+    validate(value, { target }) {
+        return value === target;
+    },
+    message: "Slaptažodžiai nesutampa!"
+});
+
 /**
  * The following block of code may be used to automatically register your
  * Vue components. It will recursively scan this directory for the Vue
@@ -105,6 +132,15 @@ Vue.component(
 Vue.component(
     "passport-personal-access-tokens",
     require("./components/passport/PersonalAccessTokens.vue").default
+);
+
+Vue.component(
+    "user-create",
+    require("./components/users/CreateFormComponent.vue").default
+);
+Vue.component(
+    "role-create",
+    require("./components/roles/CreateFormComponent.vue").default
 );
 /**
  * Next, we will create a fresh Vue application instance and attach it to
