@@ -1,10 +1,10 @@
 <template>
   <div>
     <div class="pull-left">
-      <h2>Sukurti naują rolę</h2>
+      <h2>Įtraukti naują produktą</h2>
     </div>
 
-    <b-button :to="`/roles`" variant="outline-primary" class="mb-2">
+    <b-button :to="`/products`" variant="outline-primary" class="mb-2">
       <b-icon icon="arrow-left"></b-icon>
     </b-button>
 
@@ -31,35 +31,19 @@
           </b-form-group>
         </validation-provider>
         <validation-provider
-          name="Pasirinkti leidimus"
-          :rules="{ required: true }"
+          name="Aprašymas"
+          :rules="{ required: true, min: 3}"
           v-slot="validationContext"
         >
-          <b-form-group>
-            <template v-slot:label>
-              <b>Pasirinkti leidimus:</b>
-              <br />
-              <b-form-checkbox
-                v-model="form.allSelected"
-                :indeterminate="form.indeterminate"
-                aria-describedby="permissions"
-                aria-controls="permissions"
-                @change="toggleAll"
-              >{{ form.allSelected ? 'Atžymėti visus' : 'Pažymėti visus' }}</b-form-checkbox>
-            </template>
-
-            <b-form-checkbox-group
-              id="permissions"
-              v-model="selected"
-              :options="form.permissions"
-              name="permissions"
+          <b-form-group id="input-group-2" label="Aprašymas:" label-for="description">
+            <b-form-textarea
+              id="description"
+              v-model="form.description"
               :state="getValidationState(validationContext)"
-              class="ml-4"
-              aria-label="Individual permissions"
+              rows="3"
+              placeholder="Trumpas aprašymas"
               aria-describedby="input-2-live-feedback"
-              stacked
-            ></b-form-checkbox-group>
-
+            ></b-form-textarea>
             <b-form-invalid-feedback id="input-2-live-feedback">
               {{
               validationContext.errors[0]
@@ -67,6 +51,7 @@
             </b-form-invalid-feedback>
           </b-form-group>
         </validation-provider>
+
         <b-button type="submit" variant="outline-success" class="mb-2" size="lg">
           <b-icon icon="check-circle"></b-icon>
         </b-button>
@@ -76,7 +61,7 @@
       </b-form>
     </validation-observer>
     <b-card class="mt-3" header="Form Data Result">
-      <pre class="m-0">{{ form }} {{selected}}</pre>
+      <pre class="m-0">{{ form }}</pre>
     </b-card>
   </div>
 </template>
@@ -86,26 +71,14 @@ export default {
   data() {
     return {
       form: {
-        name: "",
-        permissions: [
-          "role-list ",
-          "role-create ",
-          "role-edit ",
-          "role-delete ",
-          "invoice-list "
-        ],
-
-        allSelected: false,
-        indeterminate: false
+        description: "",
+        name: ""
       },
-      selected: [],
+
       show: true
     };
   },
   methods: {
-    toggleAll(checked) {
-      this.selected = checked ? this.form.permissions.slice() : [];
-    },
     getValidationState({ dirty, validated, valid = null }) {
       return dirty || validated ? valid : null;
     },
@@ -113,10 +86,8 @@ export default {
     onReset(evt) {
       evt.preventDefault();
       // Reset our form values
+      this.form.description = "";
       this.form.name = "";
-      this.form.allSelected = false;
-      this.form.indeterminate = false;
-      this.selected = null;
       // Trick to reset/clear native browser form validation state
       this.show = false;
       this.$nextTick(() => {
@@ -134,21 +105,6 @@ export default {
 
         alert("Form submitted!");
       });
-    }
-  },
-  watch: {
-    selected(newVal, oldVal) {
-      // Handle changes in individual flavour checkboxes
-      if (newVal.length === 0) {
-        this.form.indeterminate = false;
-        this.form.allSelected = false;
-      } else if (newVal.length === this.form.permissions.length) {
-        this.form.indeterminate = false;
-        this.form.allSelected = true;
-      } else {
-        this.form.indeterminate = true;
-        this.form.allSelected = false;
-      }
     }
   }
 };
