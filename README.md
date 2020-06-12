@@ -4,6 +4,8 @@ How to
 * Create an empty database table
 * Copy the .env.example to .env and insert the Database config
 * Run the following commands
-    - composer install
-    - php artisan migrate --seed
-    - php artisan key:generate
+    ``` 
+    composer install
+    php artisan migrate --seed
+    php artisan key:generate
+    ```
